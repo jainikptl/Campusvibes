@@ -5,70 +5,295 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CampusVibes - Feed</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <div id="splashScreen">
-    <h1 class="splash-title">🌟 CampusVibes</h1>
-    <p class="splash-subtitle">Where College Clubs Come Alive</p>
+    <div class="splash-logo">
+      <i class="fas fa-graduation-cap splash-icon"></i>
+    </div>
+    <h1 class="splash-title">CampusVibes</h1>
+    <p class="splash-subtitle">Where College Clubs Come Alive ✨</p>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
   </div>
     
   <canvas id="bgCanvas"></canvas>
 
-  <h1>CampusVibes</h1>
-  <p class="subtitle">Your one-stop club update feed ✨</p>  
-  
-  <div class="filter-container" style="text-align: center; margin-bottom: 1.5rem;">
-    <label for="categoryFilter" style="margin-right: 8px;">Vibe with:</label>
-    <select id="categoryFilter" style="background-color: rgb(166, 139, 193); border-radius: 10px;padding: 5px;" >
-      <option value="all">All Clubs</option>
-      <option value="Coding Club">Coding Club</option>
-      <option value="Drama Club">Drama Club</option>
-      <option value="Dance Club">Dance Club</option>
-      <!-- Add more as needed -->
-    </select>
+  <!-- Admin-inspired Header -->
+  <header class="admin-header">
+    <div class="logo-container">
+      <i class="fas fa-graduation-cap logo-icon"></i>
+      <div class="logo-text">CampusVibes</div>
+    </div>
+    <div class="header-controls">
+      <div class="notification-bell">
+        <i class="fas fa-bell"></i>
+        <span class="notification-badge">3</span>
+      </div>
+      <div class="user-avatar">
+        <img src="/api/placeholder/40/40" alt="User Avatar">
+      </div>
+    </div>
+  </header>
+
+  <div class="dashboard-summary">
+    <div class="summary-card">
+      <i class="fas fa-users card-icon"></i>
+      <div class="card-details">
+        <h3>15</h3>
+        <p>Active Clubs</p>
+      </div>
+    </div>
+    <div class="summary-card">
+      <i class="fas fa-calendar-alt card-icon"></i>
+      <div class="card-details">
+        <h3>27</h3>
+        <p>Upcoming Events</p>
+      </div>
+    </div>
+    <div class="summary-card">
+      <i class="fas fa-star card-icon"></i>
+      <div class="card-details">
+        <h3>8</h3>
+        <p>Featured Events</p>
+      </div>
+    </div>
   </div>
   
-  <!-- ✅ Added wrapper -->
-  <div class="timeline">
+  <h1 class="main-title">Events Feed</h1>
+  <p class="subtitle">Stay updated with the latest campus activities ✨</p>  
+  
+  <div class="filter-container">
+    <div class="search-box">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" placeholder="Search events..." id="searchInput">
+    </div>
+    <div class="filter-dropdown">
+      <label for="categoryFilter">
+        <i class="fas fa-filter"></i>
+        <span>Filter by:</span>
+      </label>
+      <select id="categoryFilter">
+        <option value="all">All Clubs</option>
+        <option value="Coding Club">Coding Club</option>
+        <option value="Drama Club">Drama Club</option>
+        <option value="Dance Club">Dance Club</option>
+        <option value="Music Club">Music Club</option>
+        <option value="Sports Club">Sports Club</option>
+      </select>
+    </div>
+    <div class="view-toggle">
+      <button class="active" id="timelineView"><i class="fas fa-stream"></i> Timeline</button>
+      <button id="gridView"><i class="fas fa-th"></i> Grid</button>
+    </div>
+  </div>
+  
+  <!-- Featured Event -->
+  <div class="featured-event">
+    <div class="featured-badge">
+      <i class="fas fa-star"></i> FEATURED
+    </div>
+    <div class="featured-content">
+      <div class="featured-image">
+        <img src="/api/placeholder/300/200" alt="Hackathon Event">
+      </div>
+      <div class="featured-details">
+        <h2>Annual Tech Hackathon 2025</h2>
+        <p class="featured-date"><i class="far fa-calendar-alt"></i> April 20-22, 2025</p>
+        <p class="featured-organizer"><i class="fas fa-users"></i> Organized by CodeCell</p>
+        <p class="featured-description">Join the biggest coding event of the year! 48 hours of coding, innovation, and amazing prizes worth $5000.</p>
+        <div class="featured-stats">
+          <div class="stat">
+            <i class="fas fa-user-plus"></i>
+            <span>156 Registered</span>
+          </div>
+          <div class="stat">
+            <i class="fas fa-clock"></i>
+            <span>5 Days Left</span>
+          </div>
+        </div>
+        <a href="https://example.com/register-hackathon" class="primary-btn">Register Now <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Timeline View -->
+  <div class="timeline" id="timelineContainer">
     <div class="timeline-item left">
       <div class="timeline-item-content">
-        <h3>🎤 Music Club</h3>
-        <p>Live concert this Friday at 5PM 🎵</p>
-        <div class="date">10 April 2025</div>
-        <a href="https://example.com/register-hackathon" target="_blank" class="register-btn">Register Now 🔗</a>
+        <div class="event-category music">
+          <i class="fas fa-music"></i> Music Club
+        </div>
+        <h3>Spring Concert Night</h3>
+        <p>Live performances featuring the college bands and solo artists</p>
+        <div class="event-details">
+          <div class="detail">
+            <i class="far fa-calendar-alt"></i>
+            <span>10 April 2025</span>
+          </div>
+          <div class="detail">
+            <i class="far fa-clock"></i>
+            <span>5:00 PM</span>
+          </div>
+          <div class="detail">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Main Auditorium</span>
+          </div>
+        </div>
+        <div class="action-buttons">
+          <a href="https://example.com/register-concert" class="register-btn">Register <i class="fas fa-ticket-alt"></i></a>
+          <button class="share-btn"><i class="fas fa-share-alt"></i></button>
+          <button class="save-btn"><i class="far fa-bookmark"></i></button>
+        </div>
       </div>
     </div>
     
     <div class="timeline-item right">
       <div class="timeline-item-content">
-        <h3>💻 CodeCell</h3>
-        <p>Hackathon Registrations Open! Deadline: 12 April</p>
-        <div class="date">9 April 2025</div>
-        <a href="https://example.com/register-hackathon" target="_blank" class="register-btn">Register Now 🔗</a>
+        <div class="event-category coding">
+          <i class="fas fa-laptop-code"></i> CodeCell
+        </div>
+        <h3>JavaScript Workshop</h3>
+        <p>Learn modern JavaScript frameworks from industry experts</p>
+        <div class="event-details">
+          <div class="detail">
+            <i class="far fa-calendar-alt"></i>
+            <span>12 April 2025</span>
+          </div>
+          <div class="detail">
+            <i class="far fa-clock"></i>
+            <span>2:00 PM</span>
+          </div>
+          <div class="detail">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Lab Complex</span>
+          </div>
+        </div>
+        <div class="action-buttons">
+          <a href="https://example.com/register-js-workshop" class="register-btn">Register <i class="fas fa-ticket-alt"></i></a>
+          <button class="share-btn"><i class="fas fa-share-alt"></i></button>
+          <button class="save-btn"><i class="far fa-bookmark"></i></button>
+        </div>
       </div>
     </div>
+    
     <div class="timeline-item left">
       <div class="timeline-item-content">
-        <h3>💻 CodeCell</h3>
-        <p>Hackathon Registrations Open! Deadline: 12 April</p>
-        <div class="date">9 April 2025</div>
-        <a href="https://example.com/register-hackathon" target="_blank" class="register-btn">Register Now 🔗</a>
+        <div class="event-category dance">
+          <i class="fas fa-shoe-prints"></i> Dance Club
+        </div>
+        <h3>Annual Dance Competition</h3>
+        <p>Showcase your dance skills and win amazing prizes</p>
+        <div class="event-details">
+          <div class="detail">
+            <i class="far fa-calendar-alt"></i>
+            <span>15 April 2025</span>
+          </div>
+          <div class="detail">
+            <i class="far fa-clock"></i>
+            <span>6:00 PM</span>
+          </div>
+          <div class="detail">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Indoor Stadium</span>
+          </div>
+        </div>
+        <div class="action-buttons">
+          <a href="https://example.com/register-dance" class="register-btn">Register <i class="fas fa-ticket-alt"></i></a>
+          <button class="share-btn"><i class="fas fa-share-alt"></i></button>
+          <button class="save-btn"><i class="far fa-bookmark"></i></button>
+        </div>
       </div>
     </div>
+    
     <div class="timeline-item right">
       <div class="timeline-item-content">
-        <h3>💻 CodeCell</h3>
-        <p>Hackathon Registrations Open! Deadline: 12 April</p>
-        <div class="date">9 April 2025</div>
-        <a href="https://example.com/register-hackathon" target="_blank" class="register-btn">Register Now 🔗</a>
+        <div class="event-category drama">
+          <i class="fas fa-theater-masks"></i> Drama Club
+        </div>
+        <h3>"The Glass Menagerie" Play</h3>
+        <p>Tennessee Williams' classic performed by our drama club</p>
+        <div class="event-details">
+          <div class="detail">
+            <i class="far fa-calendar-alt"></i>
+            <span>18 April 2025</span>
+          </div>
+          <div class="detail">
+            <i class="far fa-clock"></i>
+            <span>7:30 PM</span>
+          </div>
+          <div class="detail">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Open Air Theater</span>
+          </div>
+        </div>
+        <div class="action-buttons">
+          <a href="https://example.com/register-play" class="register-btn">Register <i class="fas fa-ticket-alt"></i></a>
+          <button class="share-btn"><i class="fas fa-share-alt"></i></button>
+          <button class="save-btn"><i class="far fa-bookmark"></i></button>
+        </div>
       </div>
+    </div>
+    
+    <div class="load-more">
+      <button id="loadMoreBtn">
+        <i class="fas fa-sync-alt"></i> Load More Events
+      </button>
     </div>
   </div>
   
+  <!-- Grid View (Initially Hidden) -->
+  <div class="event-grid" id="gridContainer" style="display: none;">
+    <!-- Grid items will be dynamically populated with JS -->
+  </div>
+  
+  <!-- Newsletter Section -->
+  <div class="newsletter-section">
+    <div class="newsletter-content">
+      <i class="far fa-envelope newsletter-icon"></i>
+      <h2>Never Miss an Event!</h2>
+      <p>Subscribe to get weekly updates about the hottest events on campus</p>
+      <form class="newsletter-form">
+        <input type="email" placeholder="your@email.com" required>
+        <button type="submit" class="primary-btn">Subscribe <i class="fas fa-paper-plane"></i></button>
+      </form>
+    </div>
+  </div>
 
-  <footer>© 2025 CampusVibes | Made with ❤️ Jainik AKA jenu</footer>
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>CampusVibes</h3>
+        <p>Where College Clubs Come Alive</p>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Events</a></li>
+          <li><a href="#">Clubs</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <p><i class="fas fa-envelope"></i> contact@campusvibes.com</p>
+        <p><i class="fas fa-phone"></i> +1 234 567 890</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 CampusVibes | Made with <i class="fas fa-heart"></i> by Jainik AKA jenu
+    </div>
+  </footer>
 
   <script src="script.js"></script>
-
 </body>
 </html>
